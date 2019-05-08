@@ -56,7 +56,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 3)
+    t = maximum(t, dims = 3)
     t = squeeze(t, 3)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
@@ -107,7 +107,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 1)
+    t = maximum(t, dims = 1)
     t = squeeze(t, 1)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
@@ -157,7 +157,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 2)
+    t = maximum(t, dims = 2)
     t = squeeze(t, 2)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
