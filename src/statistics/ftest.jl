@@ -94,6 +94,6 @@ function _ftest_spectrum(sweep::Union{Array{Float64,1}, Array{Float64,2}}; ref::
     return spectrum
 end
 
-function _ftest_spectrum(sweeps::Array{Float64,3};ref=0); _ftest_spectrum(squeeze(mean(sweeps,2),2),ref=ref); end
+function _ftest_spectrum(sweeps::Array{Float64,3};ref=0); _ftest_spectrum(dropdims(mean(sweeps,2),dims = 2),ref=ref); end
 #=function _ftest_spectrum(s::Array{Float32}; ref=0); _ftest_spectrum(convert(Array{AbstractFloat}, s), ref=ref); end=#
 #=function _ftest_spectrum(s::Array{Float64}; ref=0); _ftest_spectrum(convert(Array{AbstractFloat}, s), ref=ref); end=#

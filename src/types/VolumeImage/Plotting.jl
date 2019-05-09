@@ -30,7 +30,7 @@ function plot(v::VolumeImage; kwargs...)
     y = AbstractFloat[yi / (1 * u"mm") for yi in v.y]
     z = AbstractFloat[zi / (1 * u"mm") for zi in v.z]
 
-    plot_src(squeeze(v.data, 4), x, y, z; kwargs...)
+    plot_src(dropdims(v.data, dims = 4), x, y, z; kwargs...)
 end
 
 
@@ -57,7 +57,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     s_tmp = AbstractFloat[]
     t = copy(d)
     t = maximum(t, dims = 3)
-    t = squeeze(t, 3)
+    t = dropdims(t, dims = 3)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]
@@ -108,7 +108,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     s_tmp = AbstractFloat[]
     t = copy(d)
     t = maximum(t, dims = 1)
-    t = squeeze(t, 1)
+    t = dropdims(t, dims = 1)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]
@@ -158,7 +158,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     s_tmp = AbstractFloat[]
     t = copy(d)
     t = maximum(t, dims = 2)
-    t = squeeze(t, 2)
+    t = dropdims(t, dims = 2)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]

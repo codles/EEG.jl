@@ -86,5 +86,5 @@ function average_epochs(ep::Array)
 
     @info("Averaging down epochs to 1 epoch of length $(size(ep,1)) from $(size(ep,2)) epochs on $(size(ep,3)) channels")
 
-    squeeze(mean(ep, 2), 2)
+    dropdims(mean(ep, 2), dims = 2)
 end
