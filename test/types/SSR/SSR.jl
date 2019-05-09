@@ -141,7 +141,7 @@
         s1 = channel_rejection(deepcopy(s))
         @test size(s1.processing["epochs"]) == (8388, 28, 5)
 
-        data = randn(400, 10) * diagm([1, 1, 2, 1, 11, 1, 2, 100, 1, 1])
+        data = randn(400, 10) * diagm( 0 => [1, 1, 2, 1, 11, 1, 2, 100, 1, 1])
         valid = channel_rejection(data, 20, 1)
         @test valid == [ true  true  true  true  false  true  true  false  true  true]
 

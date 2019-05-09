@@ -79,7 +79,7 @@ function mean(vi::VolumeImage)
 
     vout = deepcopy(vi)
 
-    vout.data = mean(vout.data, 4)
+    vout.data = mean(vout.data, dims = 4)
 
     # Store time as 0 to indicate its been averaged
     vout.t = [NaN] * u"s"

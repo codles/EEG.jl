@@ -78,8 +78,8 @@ function bandpass_filter(signals::Array, lower::Number, upper::Number, fs::Numbe
     @debug("Filter order = $n, fs = $fs")
 
     signals = filt(f, signals)
-    signals = filt(f, flipdim(signals, 1))
-    signals = flipdim(signals, 1)
+    signals = filt(f, reverse(signals, dims = 1))
+    signals = reverse(signals, dims = 1)
 
     return signals, f
 end

@@ -77,7 +77,7 @@ function create_channel(t::Dict, l::Int, fs::Number; code::AbstractString="Code"
     for i = 1:l ; channel[i] = 252; end
 
     for i = 1:length(t[index])-1
-        channel[t[index][i] : t[index][i] + round.(Int, t[duration][i] * fs)] = t[code][i]
+        channel[t[index][i] : t[index][i] + round.(Int, t[duration][i] * fs)] .= t[code][i]
     end
 
     return channel

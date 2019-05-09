@@ -89,7 +89,7 @@ function plot_spectrum(eeg::SSR, chan::Int; targetFreq::Number=0)
 
     title = replace(title, "_", " ")
 
-    avg_sweep = dropdims(mean(eeg.processing["sweeps"], 2), dims = 2)
+    avg_sweep = dropdims(mean(eeg.processing["sweeps"], dims = 2), dims = 2)
     avg_sweep = avg_sweep[:, chan]
     avg_sweep = convert(Array{Float64}, vec(avg_sweep ))
 
