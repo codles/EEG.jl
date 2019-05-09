@@ -35,7 +35,7 @@ function peak2peak(epochs)
 
     epochsNum = size(epochs)[2]
 
-    peakvalues = Array{AbstractFloat}(epochsNum)
+    peakvalues = Array{AbstractFloat}(undef, epochsNum)
     for epoch in 1:epochsNum
         peakvalues[epoch] = abs.(maximum(epochs[:, epoch, :]) - minimum(epochs[:, epoch, :]))
     end

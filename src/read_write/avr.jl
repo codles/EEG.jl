@@ -36,7 +36,7 @@ function read_avr(fname::AbstractString)
     chanNames      = matchall(names_exp, readline(file))
 
     # Data
-    data = Array{Float64}((npts, nchan))
+    data = Array{Float64}(undef, (npts, nchan))
     for c = 1:nchan
         d = matchall(r"([-+]?[0-9]*\.?[0-9]+)", readline(file))
         for n = 1:npts

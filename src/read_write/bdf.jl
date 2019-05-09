@@ -71,7 +71,7 @@ function create_channel(t::Dict, l::Int, fs::Number; code::AbstractString="Code"
 
     @debug("Creating trigger channel from data. Length: $l Triggers: $(length(t[index])) Fs: $fs")
 
-    channel = Array{Int16}(l)
+    channel = Array{Int16}(undef, l)
 
     # Initialise array to 252 code
     for i = 1:l ; channel[i] = 252; end
@@ -182,7 +182,7 @@ end
 
 function channelNames_biosemi_1020(original::Array{S}) where S <: AbstractString
 
-    converted = Array{AbstractString}(size(original))
+    converted = Array{AbstractString}(undef, size(original))
 
     @info("Fixing channel names of $(length(original)) channels")
 
