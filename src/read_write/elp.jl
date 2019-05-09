@@ -34,8 +34,8 @@ function read_elp(fname::AbstractString; coordinate=Talairach, r::Real=90)
         local_matches = match(regexp, m[idx])
 
         # Extract phi and theta
-        phi = float(local_matches[2])
-        theta = float(local_matches[3])
+        phi = parse(Float64, local_matches[2])
+        theta = parse(Float64, local_matches[3])
 
         # Convert to x, y, z
         x = r .* sin.(phi*(pi/180)) .* cos.(theta*(pi/180))

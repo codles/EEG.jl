@@ -40,7 +40,7 @@ function read_avr(fname::AbstractString)
     for c = 1:nchan
         d = matchall(r"([-+]?[0-9]*\.?[0-9]+)", readline(file))
         for n = 1:npts
-            data[n,c] = float(ascii(d[n]))
+            data[n,c] = parse(Float64, ascii(d[n]))
         end
     end
 
