@@ -193,7 +193,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     if plot_labels
         plotlist = ["T7", "C5", "C3", "C1", "Cz", "C2", "C4", "C6", "T8"]
         for elec in e
-            if findfirst(plotlist, elec.label)  > 0
+            if something(findfirst(isequal(elec.label), plotlist), 0)  > 0
                 annotate!(p3, elec.coordinate.x-5, elec.coordinate.z, elec.label)
             end
         end
