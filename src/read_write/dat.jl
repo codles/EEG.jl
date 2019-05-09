@@ -117,7 +117,7 @@ function read_dat(fid::IO)
 
                 for yind = 1:length(y)
                     d = readline(fid)       # values
-                    m = matchall(r"(-?\d+.\d+)", d)
+                    m = collect((m.match for m = eachmatch(r"(-?\d+.\d+)", d)))
                     complete_data[:, yind, zind, t] = float(m)
                 end
 
@@ -151,7 +151,7 @@ function read_dat(fid::IO)
 
                 for yind = 1:length(y)
                     d = readline(fid)       # values
-                    m = matchall(r"(-?\d+.\d+)", d)
+                    m = collect((m.match for m = eachmatch(r"(-?\d+.\d+)", d)))
                     complete_data[:, yind, zind, t] = float(m)
                 end
 

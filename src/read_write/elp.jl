@@ -26,7 +26,7 @@ function read_elp(fname::AbstractString; coordinate=Talairach, r::Real=90)
     # Read file and match to expected file format
     file = read(fname, String)
     regexp = r"(\S+)\s+(\S+)\s+(\S+)"
-    m = matchall(regexp, file)
+    m = collect((m.match for m = eachmatch(regexp, file)))
 
     # Convert label to ascii and remove '
     for idx = 1:length(m)
