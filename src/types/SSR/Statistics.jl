@@ -67,7 +67,7 @@ function save_results(a::SSR; name_extension::AbstractString="", results_key::Ab
         CSV.write(file_name, to_save)
     end
 
-    Logging.info("File saved to $file_name")
+    @info("File saved to $file_name")
 
     return a
 end

@@ -144,12 +144,12 @@ function add_dataframe_static_rows(a::DataFrame, args...)
     for kwargs in args
         @debug(kwargs)
         for k in kwargs
-            name = convert(Symbol, k[1])
+            name = Symbol(k[1])
             code = k[2]
             expanded_code = vec(repmat([k[2]], size(a, 1), 1))
             @debug("Name: $name  Code: $code")
             DataFrames.insert_single_column!(a, expanded_code, size(a,2)+1)
-            rename!(a, convert(Symbol, string("x", size(a,2))) =>  name)
+            rename!(a, Symbol(string("x", size(a,2))) =>  name)
         end
     end
     return a
