@@ -339,7 +339,7 @@
         @test s.data == s2.data
         @test s.triggers == s2.triggers
         @test s.samplingrate == s2.samplingrate
-        @test contains(s2.header["subjID"], "test") == true
+        @test occursin("test", s2.header["subjID"]) == true
 
         s = channelnames(s, ["B24", "B16", "A3", "B18", "A02", "B17"])
         write_SSR(s, fname_out)
