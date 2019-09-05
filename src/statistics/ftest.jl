@@ -50,7 +50,7 @@ function ftest(spectrum::Array{Complex{T},2}, frequencies::AbstractArray,
     noise_idxs  = [idx_Low - div(spill_bins, 2) : idx - spill_bins; idx + spill_bins : idx_High + div(spill_bins, 2)]
     noise_bins  = spectrum[noise_idxs,:]
     noise_bins  = abs.(noise_bins)
-    noise_power = vec(sum(noise_bins .^2, 1) ./ size(noise_bins,1))     # Recording noise power
+    noise_power = vec(sum(noise_bins .^2, dims = 1) ./ size(noise_bins,1))     # Recording noise power
 
     # Calculate SNR
     snr = (signal_power ./ noise_power)                                # Biased recording SNR
@@ -94,6 +94,6 @@ function _ftest_spectrum(sweep::Union{Array{Float64,1}, Array{Float64,2}}; ref::
     return spectrum
 end
 
-function _ftest_spectrum(sweeps::Array{Float64,3};ref=0); _ftest_spectrum(squeeze(mean(sweeps,2),2),ref=ref); end
+function _ftest_spectrum(sweeps::Array{Float64,3};ref=0); _ftest_spectrum(dropdims(mean(sweeps, dims = 2), dims = 2), ref=ref); end
 #=function _ftest_spectrum(s::Array{Float32}; ref=0); _ftest_spectrum(convert(Array{AbstractFloat}, s), ref=ref); end=#
 #=function _ftest_spectrum(s::Array{Float64}; ref=0); _ftest_spectrum(convert(Array{AbstractFloat}, s), ref=ref); end=#

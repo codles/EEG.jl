@@ -2,7 +2,7 @@ function read_VolumeImage(fname::AbstractString)
 
     @info("Creating volume image from file $fname")
 
-    if contains(fname, ".dat")
+    if occursin(".dat", fname)
         x, y, z, s, t = read_dat(fname)
         method = "CLARA"
         header = Dict()

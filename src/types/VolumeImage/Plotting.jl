@@ -30,7 +30,7 @@ function plot(v::VolumeImage; kwargs...)
     y = AbstractFloat[yi / (1 * u"mm") for yi in v.y]
     z = AbstractFloat[zi / (1 * u"mm") for zi in v.z]
 
-    plot_src(squeeze(v.data, 4), x, y, z; kwargs...)
+    plot_src(dropdims(v.data, dims = 4), x, y, z; kwargs...)
 end
 
 
@@ -56,8 +56,8 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 3)
-    t = squeeze(t, 3)
+    t = maximum(t, dims = 3)
+    t = dropdims(t, dims = 3)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]
@@ -107,8 +107,8 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 1)
-    t = squeeze(t, 1)
+    t = maximum(t, dims = 1)
+    t = dropdims(t, dims = 1)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]
@@ -157,8 +157,8 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     c_tmp = AbstractFloat[]
     s_tmp = AbstractFloat[]
     t = copy(d)
-    t = maximum(t, 2)
-    t = squeeze(t, 2)
+    t = maximum(t, dims = 2)
+    t = dropdims(t, dims = 2)
     for x_i in 1:size(t, 1)
         for y_i in 1:size(t, 2)
             val = t[x_i, y_i]
@@ -193,7 +193,7 @@ function plot_src(d::Array{A, 3}, x::Vector{A}, y::Vector{A}, z::Vector{A};
     if plot_labels
         plotlist = ["T7", "C5", "C3", "C1", "Cz", "C2", "C4", "C6", "T8"]
         for elec in e
-            if findfirst(plotlist, elec.label)  > 0
+            if something(findfirst(isequal(elec.label), plotlist), 0)  > 0
                 annotate!(p3, elec.coordinate.x-5, elec.coordinate.z, elec.label)
             end
         end

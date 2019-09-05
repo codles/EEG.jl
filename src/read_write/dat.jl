@@ -97,7 +97,7 @@ function read_dat(fid::IO)
 
     # Variables to fill
     t = 1
-    complete_data = Array{Float64}((length(x), length(y), length(z), t))
+    complete_data = Array{Float64}(undef, (length(x), length(y), length(z), t))
     sample_times  = Float64[]
 
     description = readline(fid)
@@ -117,7 +117,7 @@ function read_dat(fid::IO)
 
                 for yind = 1:length(y)
                     d = readline(fid)       # values
-                    m = matchall(r"(-?\d+.\d+)", d)
+                    m = collect((m.match for m = eachmatch(r"(-?\d+.\d+)", d)))
                     complete_data[:, yind, zind, t] = float(m)
                 end
 
@@ -134,7 +134,7 @@ function read_dat(fid::IO)
 
                 # There is no nice way to grow a multidimensional array
                 temp = complete_data
-                complete_data = Array{Float64}((length(x), length(y), length(z), t))
+                complete_data = Array{Float64}(undef, (length(x), length(y), length(z), t))
                 complete_data[:,:,:,1:t-1] = temp
             end
         end
@@ -151,7 +151,7 @@ function read_dat(fid::IO)
 
                 for yind = 1:length(y)
                     d = readline(fid)       # values
-                    m = matchall(r"(-?\d+.\d+)", d)
+                    m = collect((m.match for m = eachmatch(r"(-?\d+.\d+)", d)))
                     complete_data[:, yind, zind, t] = float(m)
                 end
 

@@ -30,5 +30,5 @@ function read_evt(fname::AbstractString, fs::Number; kwargs...)
 
     @info("Imported $(length(d["Code"])) events")
 
-    return Dict("Code" => d["Code"] + 252, "Index" => d["Index"], "Duration" => d["Duration"])
+    return Dict("Code" => d["Code"] .+ 252, "Index" => d["Index"], "Duration" => d["Duration"])
 end

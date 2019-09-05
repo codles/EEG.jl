@@ -141,7 +141,7 @@
         s1 = channel_rejection(deepcopy(s))
         @test size(s1.processing["epochs"]) == (8388, 28, 5)
 
-        data = randn(400, 10) * diagm([1, 1, 2, 1, 11, 1, 2, 100, 1, 1])
+        data = randn(400, 10) * diagm( 0 => [1, 1, 2, 1, 11, 1, 2, 100, 1, 1])
         valid = channel_rejection(data, 20, 1)
         @test valid == [ true  true  true  true  false  true  true  false  true  true]
 
@@ -339,7 +339,7 @@
         @test s.data == s2.data
         @test s.triggers == s2.triggers
         @test s.samplingrate == s2.samplingrate
-        @test contains(s2.header["subjID"], "test") == true
+        @test occursin("test", s2.header["subjID"]) == true
 
         s = channelnames(s, ["B24", "B16", "A3", "B18", "A02", "B17"])
         write_SSR(s, fname_out)

@@ -15,7 +15,7 @@ function find_dipoles(vi::VolumeImage; kwargs...)
     y = convert(Array{AbstractFloat}, y)
     z = convert(Array{AbstractFloat}, z)
 
-    unique_dipoles(find_dipoles(squeeze(vi.data, 4), x=x, y=y, z=z; kwargs...))
+    unique_dipoles(find_dipoles(dropdims(vi.data, dims = 4), x=x, y=y, z=z; kwargs...))
 end
 
 
@@ -44,9 +44,9 @@ function new_dipole_method(vi::VolumeImage; min_size::Real = 1, kwargs...)
 
         valid = tmp_vi.data .> threshold;
 
-        x_loc = mean(vi.x[findall(squeeze(sum(valid, [2, 3]), (2, 3)))]  / (1. * SIUnits.Meter0))
-        y_loc = mean(vi.y[findall(squeeze(sum(valid, [1, 3]), (1, 3)))]  / (1. * SIUnits.Meter0))
-        z_loc = mean(vi.z[findall(squeeze(sum(valid, [1, 2]), (1, 2)))]  / (1. * SIUnits.Meter0))
+        x_loc = mean(vi.x[findall(dropdims(sum(valid, [2, 3]), (2, 3)))]  / (1. * SIUnits.Meter0))
+        y_loc = mean(vi.y[findall(dropdims(sum(valid, [1, 3]), (1, 3)))]  / (1. * SIUnits.Meter0))
+        z_loc = mean(vi.z[findall(dropdims(sum(valid, [1, 2]), (1, 2)))]  / (1. * SIUnits.Meter0))
 
         x, y, z, t = find_location(vi, x_loc, y_loc, z_loc)
         s = vi.data[x, y, z, t]

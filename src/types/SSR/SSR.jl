@@ -417,7 +417,7 @@ function merge_channels(a::SSR, merge_Chans::Array{S}, new_name::S; kwargs...) w
     @info("Merging channels $(join(vec(channelnames(a)[keep_idxs,:]), " "))")
     @debug("Merging channels $keep_idxs")
 
-    a = add_channel(a, vec(mean(a.data[:,keep_idxs], 2)), new_name; kwargs...)
+    a = add_channel(a, vec(mean(a.data[:,keep_idxs], dims = 2)), new_name; kwargs...)
 end
 
 function merge_channels(a::SSR, merge_Chans::S, new_name::S; kwargs...) where S <: AbstractString

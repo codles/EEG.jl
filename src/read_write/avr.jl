@@ -33,14 +33,14 @@ function read_avr(fname::AbstractString)
 
     # Channel line
     names_exp = r"(\w+)"
-    chanNames      = matchall(names_exp, readline(file))
+    chanNames = collect((m.match for m = eachmatch(names_exp, readline(file))))
 
     # Data
-    data = Array{Float64}((npts, nchan))
+    data = Array{Float64}(undef, (npts, nchan))
     for c = 1:nchan
-        d = matchall(r"([-+]?[0-9]*\.?[0-9]+)", readline(file))
+        d = collect((m.match for m = eachmatch(r"([-+]?[0-9]*\.?[0-9]+)", readline(file))))
         for n = 1:npts
-            data[n,c] = float(ascii(d[n]))
+            data[n,c] = parse(Float64, ascii(d[n]))
         end
     end
 

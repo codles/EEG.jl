@@ -61,7 +61,7 @@ function add_triggers(a::SSR, mod_freq::Number; kwargs...)
     @debug("Adding triggers to reduce SSR. Using $(mod_freq)Hz")
 
     epochIndex = DataFrame(Code = a.triggers["Code"], Index = [Int(i) for i in a.triggers["Index"]]);
-    epochIndex[:Code] = epochIndex[:Code] - 252
+    epochIndex[:Code] = epochIndex[:Code] .- 252
 
     add_triggers(a, mod_freq, epochIndex; kwargs...)
 end
@@ -119,7 +119,7 @@ function channel_rejection(a::SSR; threshold_abs::Number=1000, threshold_var::Nu
 
     valid = vec(channel_rejection(data, threshold_abs, threshold_var))
 
-    @info("Rejected $(sum(.!valid)) channels $(join(channelnames(a)[find(.!valid)], " "))")
+    @info("Rejected $(sum(.!valid)) channels $(join(channelnames(a)[findall(.!valid)], " "))")
 
     remove_channel!(a, channelnames(a)[.!valid])
 
