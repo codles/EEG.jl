@@ -1,5 +1,5 @@
 """
-Return a new processing key with the number incremented.
+Return a new processing key with the number incremented.  
 It checks for existing keys and returns a string with the next key to be used.
 
 #### Arguments
